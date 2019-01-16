@@ -25,7 +25,7 @@
         "lint": "eslint --fix --ext .js,.vue src",
         "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
         "test": "npm run lint && npm run unit",
-        "prepare": "npm run dist"
+        "prepare": "npm run build"
     },
     "repository": {
         "type": "git",
