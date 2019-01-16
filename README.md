@@ -4,20 +4,10 @@ Using npm:
 ```
 npm install gq-plus --save
 
-import areaGq from '../src/index';
+import areaGq from 'gq-plus';
 Vue.use(areaGq);
 
 ```
-
-Using a script tag for global use:
-
-```html
-//项目主入口引入组件
-import areaGq from '../src/index';
-Vue.use(areaGq);
-```
-
-You can find more info [on the website](https://www.iviewui.com/docs/guide/install-en).
 
 ## Usage
 
