@@ -9,7 +9,7 @@
                 </ul>
             </div>
         </div>
-        <div class="areaBox"> 
+        <div class="areaBox" v-if="level > 0"> 
             <i class="areaArrow" :class="{active: cityShow}"></i>            
             <input type="text" v-model="city" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('cityShow')"  placeholder="--选择市--" :style="'width:' + labelWidth + 'px'"/>
             <div class="areaModal" :class="{hide: !cityShow}" v-if="cityList.length">
@@ -18,7 +18,7 @@
                 </ul>
             </div>
         </div>
-        <div class="areaBox">
+        <div class="areaBox" v-if="level > 1">
             <i class="areaArrow" :class="{active: areaShow}"></i> 
             <input type="text" v-model="area" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('areaShow')"  placeholder="--选择县/区--" :style="'width:' + labelWidth + 'px'"/>
             <div class="areaModal" :class="{hide: !areaShow}" v-if="areaList.length">
@@ -41,6 +41,10 @@
             labelWidth: {
                 type: Number,
                 default: 145
+            },
+            level: {
+                type: Number,
+                default: 2
             }
         },
         watch: {

@@ -5,8 +5,8 @@ const components = {
     AreaSelect
 };
 
-const axios = require('axios');
-//加载地区数据
+/*const axios = require('axios');
+//生成地区数据
 const loadArea = async () => {
     try {
         axios.get('http://172.16.0.145:50720/gangquan360-web/area/areaList')
@@ -24,7 +24,7 @@ const loadArea = async () => {
         }
     } catch (e) {}
 }
-window.downLoadArea = loadArea;
+loadArea();*/
 const install = function(Vue, opts = {}) {
     if (install.installed) return;
 

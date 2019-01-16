@@ -36,7 +36,6 @@ export default {
         let res = [];
         let provice = code.substring(0,2)+ '0000';
         let city = code.substring(0,4) + '00';
-        console.log(code, provice, city)
         areaData.map(item => {
         	let extName = simple ? item.name : item.extName;
         	if(provice == item.id){
