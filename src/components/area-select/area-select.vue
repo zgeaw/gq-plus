@@ -69,11 +69,6 @@
                 }
             }
         },
-        mounted () {
-            /*this.$Area.getTextByCode("110000")
-            this.$Area.getTextByCode("110100")
-            this.$Area.getTextByCode("110101")*/
-        },
         methods: {
             //初始化数据
             init(){
