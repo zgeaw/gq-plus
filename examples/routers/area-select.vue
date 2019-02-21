@@ -1,11 +1,34 @@
 <template>
     <div>
-        <AreaSelect />
+    	<pre>1、默认参数</pre>
+        <areaSelect /><br><br>
+    	<pre>2、:level="0"</pre>
+        <areaSelect :level="0"/><br><br>
+    	<pre>3、:level="1"</pre>
+        <areaSelect :level="1"/><br><br>
+    	<pre>4、:level="2"</pre>
+        <areaSelect :level="2"/><br><br>
+    	<pre>5、value="410381"</pre>
+        <areaSelect value="410381" /><br><br>
+    	<pre>6、value="410381 disabled"</pre>
+        <areaSelect value="410381" disabled /><br><br>
+    	<pre>7、自定义单个选择框宽度 :labelWidth="200"</pre>
+        <areaSelect :labelWidth="200" /><br><br>
+    	<pre>8、this.$Area.getTextByCode('410381')</pre>
+        {{label}}<br><br>
     </div>
 </template>
 <script>
-    import { AreaSelect } from 'areaGq';
+    import { areaSelect } from 'areaGq';
     export default {
-        components: { AreaSelect }
+        components: { areaSelect },
+        data(){
+        	return {
+        		label: '' 
+        	}
+        },
+        mounted(){
+        	this.label = this.$Area.getTextByCode('410381')
+        }
     }
 </script>

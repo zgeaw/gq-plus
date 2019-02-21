@@ -1,7 +1,7 @@
 <template>
     <div class="areaSelect">
         <div class="areaBox"> 
-            <i class="areaArrow" :class="{active: provinceShow}"></i>           
+            <i class="areaArrow" :class="{active: provinceShow}" v-if="!disabled"></i>           
             <input type="text" v-model="province" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('provinceShow')" placeholder="--选择省--" :style="'width:' + labelWidth + 'px'"/>
             <div class="areaModal" :class="{hide: !provinceShow}" v-if="provinceList.length">
                 <ul>
@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="areaBox" v-if="level > 0"> 
-            <i class="areaArrow" :class="{active: cityShow}"></i>            
+            <i class="areaArrow" :class="{active: cityShow}" v-if="!disabled"></i>            
             <input type="text" v-model="city" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('cityShow')"  placeholder="--选择市--" :style="'width:' + labelWidth + 'px'"/>
             <div class="areaModal" :class="{hide: !cityShow}" v-if="cityList.length">
                 <ul>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="areaBox" v-if="level > 1">
-            <i class="areaArrow" :class="{active: areaShow}"></i> 
+            <i class="areaArrow" :class="{active: areaShow}" v-if="!disabled"></i> 
             <input type="text" v-model="area" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('areaShow')"  placeholder="--选择县/区--" :style="'width:' + labelWidth + 'px'"/>
             <div class="areaModal" :class="{hide: !areaShow}" v-if="areaList.length">
                 <ul>
@@ -33,15 +33,18 @@
     export default {
         name: 'AreaSelect',
         props: {
-            value: [String, Number],
+            value: [String, Number],//初始化六位数字code码
+            //是否禁用地区选择组件，默认不禁用
             disabled: {
                 type: Boolean,
                 default: false
             },
+            //自定义单个选择框宽度
             labelWidth: {
                 type: Number,
                 default: 145
             },
+            //0显示省 1显示省-市 2显示省-市-县，默认为2
             level: {
                 type: Number,
                 default: 2
@@ -54,20 +57,23 @@
         },
         data() {
             return {
-                province: '',
-                provinceList: this.$Area.getProvince(),
-                provinceShow: false,
-                city: '',
-                cityList: [],
-                cityShow: false,
-                area: '',
-                areaList: [],
-                areaShow: false,
-                selects: {
+                province: '',//省
+                provinceList: this.$Area.getProvince(),//省 数据列表
+                provinceShow: false,//省 下拉框展开状态
+                city: '',//市
+                cityList: [],//市 数据列表
+                cityShow: false,//市 下拉框展开状态
+                area: '',//县/区 
+                areaList: [],//县/区 数据列表
+                areaShow: false,//县/区 下拉框展开状态
+                selects: {//选择的值
                     code: '000000',
                     label: ['', '', '']
                 }
             }
+        },
+        mounted(){
+            this.init()
         },
         methods: {
             //初始化数据
@@ -78,24 +84,27 @@
                 let province = this.value.substring(0, 2) + '0000'
                 let city = this.value.substring(0, 4) + '00'
                 let area = this.value
-                if(province != '000000'){
-                    this.selectProvince(this.getCode(province))
+                if(province != '000000'){//渲染省份
+                    this.selectProvince(this.getCode(0, province))
                 }
-                if(city.substring(2, 4) != '00'){
-
-                    this.selectCity(this.getCode(city))
+                if(city.substring(2, 4) != '00'){//渲染市
+                    this.selectCity(this.getCode(1, city, this.getCode(0, province)))
                 }
-                if(area.substring(4, 6) != '00'){
-                    this.selectArea(this.getCode(area))
+                if(area.substring(4, 6) != '00'){//渲染区
+                    this.selectArea(this.getCode(2, area, this.getCode(1, city, this.getCode(0, province))))
                 }               
             },
             //获取code数据源
-            getCode(code){
-                let list = areaSelector.data.filter(item => item.code == code)
-                if(list.length > 0){
-                    return list[0]
+            getCode(level, code, item){
+                if(level == 0){
+                    return this.$Area.getProvince(code)
                 }
-                return ''
+                if(level == 1){
+                    return this.$Area.getCity(item, code)
+                }
+                if(level == 2){
+                    return this.$Area.getArea(item, code)
+                }
             },
             //显示-隐藏下拉选择框
             showSelect(key){
@@ -117,7 +126,7 @@
                 }
                 this.provinceShow = false
                 this.province = item.text
-                this.cityList = this.$Area.getCity(item.code)
+                this.cityList = this.$Area.getCity(item)
                 this.selects.code = item.code
                 this.selects.label[0] = item.text
                 this.selects.label[1] = ''
@@ -133,7 +142,7 @@
                 }
                 this.cityShow = false
                 this.city = item.text
-                this.areaList = this.$Area.getArea(item.code)
+                this.areaList = this.$Area.getArea(item)
                 this.selects.code = item.code
                 this.selects.label[1] = item.text
                 this.selects.label[2] = ''
@@ -176,11 +185,12 @@
             }
             .areaInput{
                 height: 32px; line-height: 32px; background: #fff; color: #666; border: 1px #e2e2e2 solid; transition: all 0.3s;
-                padding: 0 10px; border-radius: 4px; cursor: pointer; box-shadow: none; outline: none; font-size: 12px;
+                padding: 0 10px; border-radius: 4px; cursor: pointer; box-shadow: none; outline: none; font-size: 12px; box-sizing: border-box;
                 &:hover, &:focus{ border-color: @green; }
+                &[disabled]{ cursor: not-allowed; background: #f4f4f4; border-color: #f4f4f4; color: #666; }
             }
             .areaModal{
-                position: absolute; left: 0; width: 100%; max-height: 260px; overflow: auto; margin-top: 2px;
+                position: absolute; left: 0; width: 100%; max-height: 260px; overflow: auto; margin-top: 2px; z-index: 8;
                 background: #fff; border: 1px #e2e2e2 solid; border-radius: 4px; min-width: 145px;
                 .scrollbar;
                 ul{

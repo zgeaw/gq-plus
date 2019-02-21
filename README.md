@@ -21,7 +21,7 @@ this.$Area.getTextByCode(code)
 
 ```vue
 <template>
-    <AreaSelect @on-change="onChange" />
+    <areaSelect @on-change="onChange" />
 </template>
 <script>
     export default {
