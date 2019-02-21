@@ -17,6 +17,8 @@ this.$Area.getTextByCode(code)
 
 ```
 
+<img src="https://github.com/zgeaw/gq-plus/blob/master/dist/demo.png?raw=true"/>
+
 ## Usage
 
 ```vue
