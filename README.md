@@ -13,7 +13,7 @@ Vue.use(areaGq);
 
 根据地区码获取地区中文:
 ```
-this.$Area.getTextByCode(code)
+this.$GqPlus.getTextByCode(code)
 
 ```
 
