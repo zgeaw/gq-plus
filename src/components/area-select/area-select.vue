@@ -135,7 +135,7 @@
                 this.selects.label[2] = ''
                 this.city = ''
                 this.area = ''
-                this.$emit('on-change', this.selects)
+                this.onChange()
             },
             //选择市
             selectCity(item){
@@ -149,7 +149,7 @@
                 this.selects.label[1] = item.text
                 this.selects.label[2] = ''
                 this.area = ''
-                this.$emit('on-change', this.selects)
+                this.onChange()
             },
             //选择区
             selectArea(item){
@@ -160,6 +160,11 @@
                 this.area = item.text
                 this.selects.code = item.code
                 this.selects.label[2] = item.text
+                this.onChange()
+            },
+            //改变地区
+            onChange(){
+                this.selects.label = this.selects.label.filter(item => item)              
                 this.$emit('on-change', this.selects)
             }
         }
