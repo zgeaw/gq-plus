@@ -38,7 +38,7 @@ this.$Area.getTextByCode(code)
         	},
             //根据code返回省市县数据
             getTextByCode(){
-                let text = this.$Area.getTextByCode("110101")
+                let text = this.$GqPlus.getTextByCode("110101")
                 //text 返回值 北京市-市辖区-东城区
             }
         }

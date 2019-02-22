@@ -12,19 +12,21 @@
         <div class="areaBox" v-if="level > 0"> 
             <i class="areaArrow" :class="{active: cityShow}" v-if="!disabled"></i>            
             <input type="text" v-model="city" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('cityShow')"  placeholder="--选择市--" :style="'width:' + labelWidth + 'px'"/>
-            <div class="areaModal" :class="{hide: !cityShow}" v-if="cityList.length">
-                <ul>
+            <div class="areaModal" :class="{hide: !cityShow}">
+                <ul v-if="cityList.length">
                     <li :value="item.code" v-for="item in cityList" v-text="item.text" @click="selectCity(item)" :class="{active: city == item.text}"></li>
                 </ul>
+                <p class="noData" v-else>无匹配市</p>
             </div>
         </div>
         <div class="areaBox" v-if="level > 1">
             <i class="areaArrow" :class="{active: areaShow}" v-if="!disabled"></i> 
             <input type="text" v-model="area" class="areaInput" :disabled="disabled" readonly="readonly" @click.stop="showSelect('areaShow')"  placeholder="--选择县/区--" :style="'width:' + labelWidth + 'px'"/>
-            <div class="areaModal" :class="{hide: !areaShow}" v-if="areaList.length">
-                <ul>
+            <div class="areaModal" :class="{hide: !areaShow}">
+                <ul v-if="areaList.length">
                     <li :value="item.code" v-for="item in areaList" v-text="item.text" @click="selectArea(item)" :class="{active: area == item.text}"></li>
                 </ul>
+                <p class="noData" v-else>无匹配县/区</p>
             </div>
         </div>
     </div>
@@ -58,7 +60,7 @@
         data() {
             return {
                 province: '',//省
-                provinceList: this.$Area.getProvince(),//省 数据列表
+                provinceList: this.$GqPlus.getProvince(),//省 数据列表
                 provinceShow: false,//省 下拉框展开状态
                 city: '',//市
                 cityList: [],//市 数据列表
@@ -97,13 +99,13 @@
             //获取code数据源
             getCode(level, code, item){
                 if(level == 0){
-                    return this.$Area.getProvince(code)
+                    return this.$GqPlus.getProvince(code)
                 }
                 if(level == 1){
-                    return this.$Area.getCity(item, code)
+                    return this.$GqPlus.getCity(item, code)
                 }
                 if(level == 2){
-                    return this.$Area.getArea(item, code)
+                    return this.$GqPlus.getArea(item, code)
                 }
             },
             //显示-隐藏下拉选择框
@@ -126,7 +128,7 @@
                 }
                 this.provinceShow = false
                 this.province = item.text
-                this.cityList = this.$Area.getCity(item)
+                this.cityList = this.$GqPlus.getCity(item)
                 this.selects.code = item.code
                 this.selects.label[0] = item.text
                 this.selects.label[1] = ''
@@ -142,7 +144,7 @@
                 }
                 this.cityShow = false
                 this.city = item.text
-                this.areaList = this.$Area.getArea(item)
+                this.areaList = this.$GqPlus.getArea(item)
                 this.selects.code = item.code
                 this.selects.label[1] = item.text
                 this.selects.label[2] = ''
@@ -163,7 +165,7 @@
         }
     };
 </script>
-<style lang="less">
+<style lang="less" scoped>
     @green: #006953;
     //滚动条样式
     .scrollbar(@width: 8px){
@@ -180,7 +182,7 @@
             position: relative; margin-right: 5px;
             .areaArrow{
                 position: absolute; top: 50%; right: 8px; border: 2px #e2e2e2 solid; border-right: 0; border-bottom: 0;
-                transform: rotate(-135deg); width: 10px; height: 10px; margin-top: -10px; transition: all 0.3s;
+                transform: rotate(-135deg); width: 8px; height: 8px; margin-top: -6px; transition: all 0.3s; box-sizing: border-box;
                 &.active{ border-color: @green; }
             }
             .areaInput{
@@ -200,6 +202,7 @@
                         &.active{ background: @green; color: #fff; }
                     }
                 }
+                .noData{ margin: 0; padding: 6px 0; text-align: center; color: #999; }
             }
         }
     }

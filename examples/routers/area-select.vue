@@ -14,7 +14,7 @@
         <areaSelect value="410381" disabled /><br><br>
     	<pre>7、自定义单个选择框宽度 :labelWidth="200"</pre>
         <areaSelect :labelWidth="200" /><br><br>
-    	<pre>8、this.$Area.getTextByCode('410381')</pre>
+    	<pre>8、this.$GqPlus.getTextByCode('410381')</pre>
         {{label}}<br><br>
     </div>
 </template>
@@ -28,7 +28,7 @@
         	}
         },
         mounted(){
-        	this.label = this.$Area.getTextByCode('410381')
+        	this.label = this.$GqPlus.getTextByCode('410381')
         }
     }
 </script>

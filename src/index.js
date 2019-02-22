@@ -11,7 +11,7 @@ const install = function(Vue, opts = {}) {
         Vue.component(key, components[key]);
     });
 
-    Vue.prototype.$Area = areaConfig;
+    Vue.prototype.$GqPlus = areaConfig;
 };
 
 // auto install
