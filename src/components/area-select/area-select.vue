@@ -193,7 +193,7 @@
             }
             .areaModal{
                 position: absolute; left: 0; width: 100%; max-height: 260px; overflow: auto; margin-top: 2px; z-index: 8;
-                background: #fff; border: 1px #e2e2e2 solid; border-radius: 4px; min-width: 145px;
+                background: #fff; border: 1px #e2e2e2 solid; border-radius: 4px; min-width: 145px; box-shadow: 0 1px 6px rgba(0,0,0,.1);
                 .scrollbar;
                 ul{
                     li{
