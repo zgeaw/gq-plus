@@ -35,7 +35,7 @@
     export default {
         name: 'AreaSelect',
         props: {
-            value: [String, Number],//初始化六位数字code码
+            value: [String, Number, Array],//初始化六位数字code码或数组
             //是否禁用地区选择组件，默认不禁用
             disabled: {
                 type: Boolean,
@@ -83,9 +83,29 @@
                 if(!this.value){
                     return
                 }
-                let province = this.value.substring(0, 2) + '0000'
-                let city = this.value.substring(0, 4) + '00'
-                let area = this.value
+                let province = ''
+                let city = ''
+                let area = ''
+                let isString = typeof this.value
+                let array = ''
+                if(isString == 'object'){
+                    if(this.value.length > 0) {
+                        province = this.value[0]
+                        this.selectProvince(this.getName(0, province, {}, 'name'))
+                    }  
+                    if(this.value.length > 1) {
+                        city = this.value[1]
+                        this.selectCity(this.getName(1, city, this.getName(0, province, {}, 'name'), 'name'))
+                    } 
+                    if(this.value.length > 2) {
+                        area = this.value[2]
+                        this.selectArea(this.getName(2, area, this.getName(1, city, this.getName(0, province, {}, 'name'), 'name'), 'name'))
+                    }                  
+                    return
+                }
+                province = this.value.substring(0, 2) + '0000'
+                city = this.value.substring(0, 4) + '00'
+                area = this.value
                 if(province != '000000'){//渲染省份
                     this.selectProvince(this.getCode(0, province))
                 }
@@ -95,7 +115,19 @@
                 if(area.substring(4, 6) != '00'){//渲染区
                     this.selectArea(this.getCode(2, area, this.getCode(1, city, this.getCode(0, province))))
                 }               
-            },
+            },            
+            //获取name数据源
+            getName(level, name, item, type){
+                if(level == 0){
+                    return this.$GqPlus.getProvince(name, type)
+                }
+                if(level == 1){
+                    return this.$GqPlus.getCity(item, name, type)
+                }
+                if(level == 2){
+                    return this.$GqPlus.getArea(item, name, type)
+                }
+            },            
             //获取code数据源
             getCode(level, code, item){
                 if(level == 0){

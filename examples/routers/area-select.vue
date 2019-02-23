@@ -1,20 +1,22 @@
 <template>
     <div>
     	<pre>1、默认参数</pre>
-        <areaSelect /><br><br>
+        <areaSelect /><br>
     	<pre>2、:level="0"</pre>
-        <areaSelect :level="0"/><br><br>
+        <areaSelect :level="0"/><br>
     	<pre>3、:level="1"</pre>
-        <areaSelect :level="1"/><br><br>
+        <areaSelect :level="1"/><br>
     	<pre>4、:level="2"</pre>
-        <areaSelect :level="2"/><br><br>
+        <areaSelect :level="2"/><br>
     	<pre>5、value="410381"</pre>
-        <areaSelect value="410381" /><br><br>
-    	<pre>6、value="410381 disabled"</pre>
-        <areaSelect value="410381" disabled /><br><br>
-    	<pre>7、自定义单个选择框宽度 :labelWidth="200"</pre>
-        <areaSelect :labelWidth="200" /><br><br>
-    	<pre>8、this.$GqPlus.getTextByCode('410381')</pre>
+        <areaSelect value="410381" /><br>
+        <pre>6、value=['河南省', '洛阳市', '偃师市']</pre>
+        <areaSelect :value="value" /><br>
+    	<pre>7、value="410381 disabled"</pre>
+        <areaSelect value="410381" disabled /><br>
+    	<pre>8、自定义单个选择框宽度 :labelWidth="200"</pre>
+        <areaSelect :labelWidth="200" /><br>
+    	<pre>9、this.$GqPlus.getTextByCode('410381')</pre>
         {{label}}<br><br>
     </div>
 </template>
@@ -24,7 +26,8 @@
         components: { areaSelect },
         data(){
         	return {
-        		label: '' 
+        		label: '' ,
+                value: ['河南省', '洛阳市', '偃师市']
         	}
         },
         mounted(){

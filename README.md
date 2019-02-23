@@ -24,11 +24,14 @@ this.$GqPlus.getTextByCode(code)
 ```vue
 <template>
     <areaSelect @on-change="onChange" />
+    <areaSelect :value="value" />
 </template>
 <script>
     export default {
         data () {
-            return {}
+            return {
+                value: ['河南省', '洛阳市', '偃师市']
+            }
         },
         methods: {
         	//地区选择事件回调
@@ -50,7 +53,7 @@ this.$GqPlus.getTextByCode(code)
 ## props
 属性|说明|类型|默认值
 :-------: | -------  |  :-------:  |  :-------:
-value |  地区code编码, 6位数字  |String, Number |  -
+value |  地区code编码, 6位数字或者地区中文数组  |String, Number, Array |  -
 disabled |  设置为禁止选择状态  |Boolean |  false
 labelWidth |  省/市/县 输入框默认宽度  |Number |  145
 level |  要显示的级别，如设为2则显示省、市和县，即3级，级别可设为0、1、2  |Number |  2
