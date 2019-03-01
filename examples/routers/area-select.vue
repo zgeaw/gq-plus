@@ -31,7 +31,8 @@
         	}
         },
         mounted(){
-        	this.label = this.$GqPlus.getTextByCode('410381')
+        	//this.label = this.$GqPlus.getTextByCode('120000')
+            this.label = this.$GqPlus.getTextByCode('410381')
         }
     }
 </script>

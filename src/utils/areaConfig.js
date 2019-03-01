@@ -44,10 +44,16 @@ export default {
 		let province = code.substring(0, 2) + '0000'
 		let city = code.substring(0, 4) + '00'
 		let provinceObj = this.getProvince(province)
-		let cityObj = this.getCity(provinceObj, city)
-		let areaObj = this.getArea(cityObj, code)
 		res.push(provinceObj.text)
-		res.push(cityObj.text)
+		if(code.substring(3,6) == '000'){
+			return res.join("-");
+		}
+		let cityObj = this.getCity(provinceObj, city)	
+		res.push(cityObj.text)		
+		if(code.substring(4,6) == '00'){
+			return res.join("-");
+		}
+		let areaObj = this.getArea(cityObj, code)	
 		res.push(areaObj.text)
 		return res.join("-");
 	}
