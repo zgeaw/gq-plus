@@ -55,6 +55,7 @@
         watch: {
             value(val){
                 this.init()
+                console.log(val)
             }
         },
         data() {
@@ -80,7 +81,10 @@
         methods: {
             //初始化数据
             init(){
-                if(!this.value){
+                if(!this.value || this.value == '000000'){
+                    this.province = ''
+                    this.city = ''
+                    this.area = ''
                     return
                 }
                 let province = ''
@@ -89,6 +93,12 @@
                 let isString = typeof this.value
                 let array = ''
                 if(isString == 'object'){
+                    if(this.value.length == 0){
+                        this.province = ''
+                        this.city = ''
+                        this.area = ''
+                        return
+                    }
                     if(this.value.length > 0) {
                         province = this.value[0]
                         this.selectProvince(this.getName(0, province, {}, 'name'))

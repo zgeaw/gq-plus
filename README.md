@@ -17,6 +17,12 @@ this.$GqPlus.getTextByCode(code)
 
 ```
 
+重置地区:
+```
+this.reset()
+
+```
+
 <img src="https://github.com/zgeaw/gq-plus/blob/master/dist/demo.png?raw=true"/>
 
 ## Usage
@@ -43,6 +49,15 @@ this.$GqPlus.getTextByCode(code)
             getTextByCode(){
                 let text = this.$GqPlus.getTextByCode("110101")
                 //text 返回值 北京市-市辖区-东城区
+            }
+        },
+        methods: {
+            //重置
+            reset(){
+                //三种方法都支持
+                this.value = ''
+                //this.value = []
+                //this.value = '000000'
             }
         }
     }

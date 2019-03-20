@@ -10,7 +10,7 @@
         <areaSelect :level="2"/><br>
     	<pre>5、value="410381"</pre>
         <areaSelect value="410381" /><br>
-        <pre>6、value=['河南省', '洛阳市', '偃师市']</pre>
+        <pre>6、value=['河南省', '洛阳市', '偃师市']<button @click="reset" style="cursor: pointer; background: green; color: #fff; margin: 0 15px; padding: 5px 15px; border: 0">重置</button></pre>
         <areaSelect :value="value" /><br>
     	<pre>7、value="410381 disabled"</pre>
         <areaSelect value="410381" disabled /><br>
@@ -26,13 +26,21 @@
         components: { areaSelect },
         data(){
         	return {
-        		label: '' ,
+        		label: '',
                 value: ['河南省', '洛阳市', '偃师市']
         	}
         },
         mounted(){
         	//this.label = this.$GqPlus.getTextByCode('120000')
             this.label = this.$GqPlus.getTextByCode('410381')
+        },
+        methods: {
+            //重置
+            reset(){
+                this.value = ''
+                //this.value = []
+                //this.value = '000000'
+            }
         }
     }
 </script>
