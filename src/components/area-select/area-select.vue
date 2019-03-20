@@ -55,7 +55,6 @@
         watch: {
             value(val){
                 this.init()
-                console.log(val)
             }
         },
         data() {
