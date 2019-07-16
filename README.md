@@ -72,6 +72,7 @@ value |  地区code编码, 6位数字或者地区中文数组  |String, Number, 
 disabled |  设置为禁止选择状态  |Boolean |  false
 labelWidth |  省/市/县 输入框默认宽度  |Number |  145
 level |  要显示的级别，如设为2则显示省、市和县，即3级，级别可设为0、1、2  |Number |  2
+showSearch |  是否开启搜索功能，默认开启  |Boolean |  true
 
 ## events
 事件名|说明|返回值|返回值参数说明
